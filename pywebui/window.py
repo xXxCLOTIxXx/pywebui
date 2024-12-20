@@ -20,10 +20,11 @@ class Window:
     def __init__(self, url: str, title: str = "pywebui window",
                 size: tuple = (800, 600), min_size: tuple = (200, 100),
                 resizable: bool = True, frameless: bool = False, easy_drag: bool = True,
-                fullscreen: bool = False, icon: str = None, focus: bool = True, x: int = None, y: int = None,
-                on_top: bool = False, background_color: str ="#FFFFFF", text_select: bool = False, transparent: bool = False):
+                fullscreen: bool = False, focus: bool = True, x: int = None, y: int = None,
+                on_top: bool = False, background_color: str ="#FFFFFF", text_select: bool = False, transparent: bool = False,
+                initial_page: str = None):
         self.window = webview.create_window(
-            title=title, url=url, min_size=min_size, width=size[0], height=size[1],
+            title=title, url=url if initial_page is None else url+initial_page, min_size=min_size, width=size[0], height=size[1],
             resizable=resizable, focus=focus, fullscreen=fullscreen, frameless=frameless, easy_drag=easy_drag, x=x, y=y,
             on_top=on_top, background_color=background_color, text_select=text_select, transparent=transparent
         )

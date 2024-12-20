@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Настройки</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header class="header">
+        <h1>Настройки приложения</h1>
+        <nav>
+            <ul>
+                <li><a href="/screen/home.html">Главная</a></li>
+                <li><a href="/screen/profile.html">Профиль</a></li>
+                <li><a href="/screen/settings.html">Настройки</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="settings">
+            <label for="notifications">Уведомления:</label>
+            <input type="checkbox" id="notifications" checked>
+
+            <label for="theme">Тема:</label>
+            <select id="theme">
+                <option value="light">Светлая</option>
+                <option value="dark">Тёмная</option>
+            </select>
+
+            <button class="save-btn">Сохранить изменения</button>
+        </section>
+    </main>
+</body>
+</html>
