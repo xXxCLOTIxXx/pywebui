@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error {{ code }}</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #121212;
+            color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+        h1 {
+            color: #ad665e;
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 1.2rem;
+            color: #ddd;
+            margin-bottom: 30px;
+        }
+        .links {
+            font-size: 1rem;
+            color: #888;
+        }
+        .links a {
+            color: #1abc9c;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        .links a:hover {
+            text-decoration: underline;
+        }
+        .powered-by {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            font-size: 1rem;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <h1>Error {{ code }}</h1>
+    <p>{{ message }}</p>
+    <div class="powered-by">
+        Powered by
+    </div>
+    <div class="links">
+        <a href="https://github.com/xXxCLOTIxXx/pywebui" target="_blank">pywebui</a> |
+        <a href="https://github.com/pallets/flask/" target="_blank">Flask</a> |
+        <a href="https://github.com/r0x0r/pywebview" target="_blank">Webview</a>
+    </div>
+</body>
+</html>
