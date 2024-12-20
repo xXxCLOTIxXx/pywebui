@@ -2,7 +2,13 @@ from flask import Flask
 from werkzeug.exceptions import NotFound
 from flask_socketio import SocketIO, send, emit
 from threading import Thread
+
 from .respounse import render_template_path, send_from_directory, p
+from ..window import get_file_path
+
+socketio_file = p.join(p.dirname(__file__), 'base', 'socket.js')
+socketio_part = f'<script src="pywebui/js/socket.js"></script>'
+
 
 class FlaskServer:
 
@@ -29,15 +35,30 @@ class FlaskServer:
         @self.app.route('/static/<path:filename>')
         def serve_static_file(filename):
             return send_from_directory(static_folder, filename)
+        
+        @self.app.route('/pywebui/<path:filename>')
+        def serve_pywebui_file(filename):
+            return send_from_directory(p.join(p.dirname(__file__), 'base'), filename), 200
+
+
+        @self.socket.on('pywebui_file_dialog_request')
+        def handle_file_dialog_request(data):
+            request_id = data.get('id')
+            wtitle = data.get('title', 'select file')
+
+            def resp():
+                file_path = get_file_path(title=wtitle)
+                self.socket.emit('pywebui_filepath_response', {
+                    'id': request_id,
+                    'filePath': file_path
+                })
+
+            thread = Thread(target=resp, daemon=True)
+            thread.start()
+
 
 
     def add_route(self, route, view_func, methods=['GET']):
-        """
-        Добавление нового маршрута в сервер.
-        :param rule: URL путь.
-        :param view_func: Функция, которая будет обработчиком запроса.
-        :param methods: Список HTTP-методов, которые поддерживает маршрут.
-        """
         self.app.add_url_rule(route, view_func=view_func, methods=methods)
 
 
@@ -60,6 +81,5 @@ class FlaskServer:
         )
 
     def start(self, debug: bool | None = None):
-        """Запуск сервера."""
         flask_thread = Thread(target=self.__run, args=(debug,), daemon=True)
         flask_thread.start()
